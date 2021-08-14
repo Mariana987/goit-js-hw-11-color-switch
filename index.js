@@ -8,26 +8,32 @@ const colors = [
 ];
 
 
+
+const startButtonRef = document.querySelector('[data-action="start"]');
+const stopButtonRef = document.querySelector('[data-action="stop"]');
+const bodyRef = document.querySelector('body');
+
+startButtonRef.addEventListener('click', startChangingColor);
+stopButtonRef.addEventListener('click', stopChangingColor);
+
+
+
 const randomIntegerFromInterval = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-console.log(randomIntegerFromInterval)
 
-const startButtonRef = document.querySelector('.start_button')
-console.log(startButtonRef)
-const stopButtonRef = document.querySelector('.stop_button')
-console.log(stopButtonRef);
+idInterval = null;
 
-
-
-
-const onStartButton = (color) => {
-    const markup = colors
-        .map(({ color }))
-    return
+function startChangingColor() {
+    idInterval = setInterval(() => {
+        bodyRef.style.backgroundColor = `${colors[randomIntegerFromInterval(0, 6)]
+            }`;
+        startButtonRef.disabled = true;
+    }, 1000)
 };
 
-startButtonRef.addEventListener('click', onStartButton);
-// console.log(showColor(color))
-
+function stopChangingColor() {
+    clearInterval(idInterval);
+    startButtonRef.disabled = false;
+};
